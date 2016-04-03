@@ -17,6 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
+                     , safe
   default-language:    Haskell2010
 
 executable haskell-ninety-nine-exe
@@ -24,6 +25,7 @@ executable haskell-ninety-nine-exe
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , safe
                      , haskell-ninety-nine
   default-language:    Haskell2010
 
@@ -32,6 +34,8 @@ test-suite haskell-ninety-nine-test
   hs-source-dirs:      test
   main-is:             Spec.hs
   build-depends:       base
+                     , QuickCheck
+                     , safe
                      , haskell-ninety-nine
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
