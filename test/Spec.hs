@@ -18,5 +18,8 @@ prop_ProblemTwo xs = problemTwo xs == (initMay xs >>= lastMay)
 prop_ProblemThree :: (Eq a) => [a] -> Int -> Bool
 prop_PoblemThree xs k = (problemThree xs k) == (atMay xs (pred k))
 
+prop_ProblemFour :: (Eq a) => [a] -> Bool
+prop_problemFour xs = (problemFour xs) == (length xs)
+
 main :: IO ()
 main = quickCheck $ \xs -> prop_ProblemOne (xs :: [Int])

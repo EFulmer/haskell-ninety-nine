@@ -3,6 +3,7 @@ module Lib
     , problemOne
     , problemTwo
     , problemThree
+    , problemFour
     ) where
 
 someFunc :: IO ()
@@ -23,3 +24,8 @@ problemThree :: [a] -> Int -> Maybe a
 problemThree [] k     = Nothing
 problemThree (x:xs) 1 = Just x
 problemThree (x:xs) k = problemThree xs (pred k)
+
+problemFour :: [a] -> Int
+problemFour xs = go xs 0
+  where go []     n = n
+        go (x:xs) n = go xs (succ n)
