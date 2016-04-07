@@ -4,6 +4,7 @@ module Lib
     , problemTwo
     , problemThree
     , problemFour
+    , problemFive
     ) where
 
 someFunc :: IO ()
@@ -29,3 +30,8 @@ problemFour :: [a] -> Int
 problemFour xs = go xs 0
   where go []     n = n
         go (x:xs) n = go xs (succ n)
+
+problemFive :: [a] -> [a]
+problemFive []     = []
+problemFive [x]    = [x]
+problemFive (x:xs) = (problemFive xs) ++ [x]
