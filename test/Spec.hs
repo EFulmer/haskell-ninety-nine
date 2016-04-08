@@ -24,6 +24,9 @@ prop_ProblemFour xs = (problemFour xs) == (length xs)
 prop_ProblemFive :: (Eq a) => [a] -> Bool
 prop_ProblemFive xs = (problemFive xs) == (reverse xs)
 
+prop_ProblemSix :: (Eq a) => [a] -> Bool
+prop_ProblemSix xs = (problemSix xs) == (xs == reverse xs)
+
 main :: IO ()
 main = do
   quickCheck $ \xs -> prop_ProblemOne   (xs :: [Int])
@@ -31,3 +34,4 @@ main = do
   quickCheck $ \xs -> prop_ProblemThree (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemFour  (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemFive  (xs :: [Int])
+  quickCheck $ \xs -> prop_ProblemSix   (xs :: [Int])

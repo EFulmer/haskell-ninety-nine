@@ -5,6 +5,7 @@ module Lib
     , problemThree
     , problemFour
     , problemFive
+    , problemSix
     ) where
 
 someFunc :: IO ()
@@ -35,3 +36,6 @@ problemFive :: [a] -> [a]
 problemFive []     = []
 problemFive [x]    = [x]
 problemFive (x:xs) = (problemFive xs) ++ [x]
+
+problemSix :: (Eq a) => [a] -> Bool
+problemSix xs = xs == problemFive xs
