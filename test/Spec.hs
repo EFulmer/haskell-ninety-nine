@@ -3,12 +3,13 @@ module Spec
   main
   ) where
 
-import Control.Monad   (liftM)
-import Safe            (atMay, initMay, lastMay)
+import           Control.Monad      (liftM)
+import qualified Data.Set      as S
 
-import Test.QuickCheck
+import           Safe               (atMay, initMay, lastMay)
+import           Test.QuickCheck
 
-import Lib
+import           Lib
 
 prop_ProblemOne :: (Eq a) => [a] -> Bool
 prop_ProblemOne xs = problemOne xs == lastMay xs
@@ -42,6 +43,9 @@ prop_ProblemSeven xs = (length . problemSeven) xs == nlLength xs
     go n (List []) = n
     go n (List xs) = sum (fmap nlLength xs)
 
+prop_ProblemEight :: (Ord a, Eq a) => [a] -> Bool
+prop_ProblemEight xs = S.fromList (problemEight xs) == S.fromList xs
+
 main :: IO ()
 main = do
   quickCheck $ \xs -> prop_ProblemOne   (xs :: [Int])
@@ -51,3 +55,4 @@ main = do
   quickCheck $ \xs -> prop_ProblemFive  (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemSix   (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemSeven (xs :: NestedList Int)
+  quickCheck $ \xs -> prop_ProblemEight (xs :: [Int])
