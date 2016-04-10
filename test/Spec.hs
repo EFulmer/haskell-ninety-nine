@@ -3,6 +3,7 @@ module Spec
   main
   ) where
 
+import Control.Monad   (liftM)
 import Safe            (atMay, initMay, lastMay)
 
 import Test.QuickCheck
@@ -27,6 +28,20 @@ prop_ProblemFive xs = (problemFive xs) == (reverse xs)
 prop_ProblemSix :: (Eq a) => [a] -> Bool
 prop_ProblemSix xs = (problemSix xs) == (xs == reverse xs)
 
+instance (Arbitrary a) => Arbitrary (NestedList a) where
+  arbitrary = frequency
+    [ (41, Elem <$> arbitrary)
+    , (1, List <$> children) ]
+    where children = sized $ \n -> vectorOf n arbitrary
+
+prop_ProblemSeven :: (Eq a) => NestedList a -> Bool
+prop_ProblemSeven xs = (length . problemSeven) xs == nlLength xs
+  where 
+    nlLength nl = go 0 nl
+    go n (Elem _) = n + 1
+    go n (List []) = n
+    go n (List xs) = sum (fmap nlLength xs)
+
 main :: IO ()
 main = do
   quickCheck $ \xs -> prop_ProblemOne   (xs :: [Int])
@@ -35,3 +50,4 @@ main = do
   quickCheck $ \xs -> prop_ProblemFour  (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemFive  (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemSix   (xs :: [Int])
+  quickCheck $ \xs -> prop_ProblemSeven (xs :: NestedList Int)
