@@ -1,14 +1,4 @@
 module Lib where
---     ( someFunc
---     , problemOne
---     , problemTwo
---     , problemThree
---     , problemFour
---     , problemFive
---     , problemSix
---     , NestedList
---     , problemSeven
---     ) where
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
@@ -49,3 +39,11 @@ problemSeven nl = case nl of
   Elem a  -> [a]
   List [] -> []
   List as -> concatMap problemSeven as
+
+problemEight :: (Eq a) => [a] -> [a]
+problemEight [] = []
+problemEight (x:xs) = x : (problemEight (myDropWhile (==x) xs))
+  where 
+    myDropWhile p xs
+      | null xs   = []
+      | otherwise = if p (head xs) then myDropWhile p (tail xs) else xs
