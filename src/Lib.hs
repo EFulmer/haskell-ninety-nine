@@ -1,12 +1,14 @@
-module Lib
-    ( someFunc
-    , problemOne
-    , problemTwo
-    , problemThree
-    , problemFour
-    , problemFive
-    , problemSix
-    ) where
+module Lib where
+--     ( someFunc
+--     , problemOne
+--     , problemTwo
+--     , problemThree
+--     , problemFour
+--     , problemFive
+--     , problemSix
+--     , NestedList
+--     , problemSeven
+--     ) where
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
@@ -39,3 +41,11 @@ problemFive (x:xs) = (problemFive xs) ++ [x]
 
 problemSix :: (Eq a) => [a] -> Bool
 problemSix xs = xs == problemFive xs
+
+data NestedList a = Elem a | List [NestedList a] deriving (Show)
+
+problemSeven :: NestedList a -> [a]
+problemSeven nl = case nl of
+  Elem a  -> [a]
+  List [] -> []
+  List as -> concatMap problemSeven as
