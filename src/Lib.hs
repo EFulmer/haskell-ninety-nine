@@ -54,3 +54,6 @@ problemNine l@(x:xs) = xRun : (problemNine rest)
   where 
     xRun = takeWhile (==x) l
     rest = dropWhile (==x) l
+
+problemTen :: (Eq a) => [a] -> [(Int, a)]
+problemTen xs = fmap (\x -> (length x, head x)) (problemNine xs)
