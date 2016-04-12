@@ -47,3 +47,10 @@ problemEight (x:xs) = x : (problemEight (myDropWhile (==x) xs))
     myDropWhile p xs
       | null xs   = []
       | otherwise = if p (head xs) then myDropWhile p (tail xs) else xs
+
+problemNine :: (Eq a) => [a] -> [[a]]
+problemNine [] = []
+problemNine l@(x:xs) = xRun : (problemNine rest)
+  where 
+    xRun = takeWhile (==x) l
+    rest = dropWhile (==x) l
