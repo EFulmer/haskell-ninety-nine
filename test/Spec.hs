@@ -4,6 +4,7 @@ module Spec
   ) where
 
 import           Control.Monad      (liftM)
+import           Data.List          (group)
 import qualified Data.Set      as S
 
 import           Safe               (atMay, initMay, lastMay)
@@ -46,6 +47,9 @@ prop_ProblemSeven xs = (length . problemSeven) xs == nlLength xs
 prop_ProblemEight :: (Ord a, Eq a) => [a] -> Bool
 prop_ProblemEight xs = S.fromList (problemEight xs) == S.fromList xs
 
+prop_ProblemNine :: (Eq a) => [a] -> Bool
+prop_ProblemNine xs = (problemNine xs) == (group xs)
+
 main :: IO ()
 main = do
   quickCheck $ \xs -> prop_ProblemOne   (xs :: [Int])
@@ -56,3 +60,4 @@ main = do
   quickCheck $ \xs -> prop_ProblemSix   (xs :: [Int])
   quickCheck $ \xs -> prop_ProblemSeven (xs :: NestedList Int)
   quickCheck $ \xs -> prop_ProblemEight (xs :: [Int])
+  quickCheck $ \xs -> prop_ProblemNine  (xs :: [Int])
