@@ -57,3 +57,12 @@ problemNine l@(x:xs) = xRun : (problemNine rest)
 
 problemTen :: (Eq a) => [a] -> [(Int, a)]
 problemTen xs = fmap (\x -> (length x, head x)) (problemNine xs)
+
+-- this doesn't protect against Multiple 1 _, Multiple (-1) _, etc.
+-- but it's enough for our purposes
+data SingOrMult a = Multiple Int a | Single a deriving Show
+
+problemEleven :: (Eq a) => [a] -> [SingOrMult a]
+problemEleven xs = fmap toSOM (problemTen xs)
+  where toSOM (1, x) = Single x
+        toSOM (n, x) = Multiple n x
