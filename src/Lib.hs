@@ -66,3 +66,8 @@ problemEleven :: (Eq a) => [a] -> [SingOrMult a]
 problemEleven xs = fmap toSOM (problemTen xs)
   where toSOM (1, x) = Single x
         toSOM (n, x) = Multiple n x
+
+problemTwelve :: [SingOrMult a] -> [a]
+problemTwelve xs = concatMap fromSOM xs
+  where fromSOM (Multiple n x) = take n $ repeat x
+        fromSOM (Single     x) = [x]
